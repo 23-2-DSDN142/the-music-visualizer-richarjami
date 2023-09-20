@@ -10,10 +10,11 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
    let bar_height = width / 12;
    let bar_pos_x = width / 2;
  
+   let vocalHeight = map(vocal, 0,100, 0,50)
 
    // vocal bar is red
    fill(200, 0, 0);
-   rect(bar_pos_x, height / 2 + 1 * bar_spacing, 4 * vocal, bar_height);
+   rect(bar_pos_x, height / 2 + 1 * bar_spacing, 4 * vocal, vocalHeight);
    fill(0);
    text("vocals", bar_pos_x, height / 2 + 1 * bar_spacing + 8);
  
