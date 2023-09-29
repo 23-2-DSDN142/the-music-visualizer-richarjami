@@ -2,6 +2,9 @@ let firstRun = true
 let cityFront;
 let cityMid;
 let cityBack;
+let cityFrontgra;
+let cityMidgra;
+let cityBackgra;
 let vignette;
 let sunGlow;
 
@@ -22,6 +25,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
    cityFront = loadImage('cityfront.png');
    cityMid = loadImage('citymid.png');
    cityBack = loadImage('cityback.png');
+   cityFrontgra = loadImage('frontcitygra.png');
+   cityMidgra = loadImage('midcitygra.png');
+   cityBackgra = loadImage('backcitygra.png');
    vignette = loadImage('vignette.png');
    sunGlow = loadImage('sunGlow.png');
 
@@ -35,24 +41,25 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
 //Gradient BG
 
-   let blueColorNew = color(31, 15, 15);
-   let blueColorOld = color(220, 106, 103);
-   let skyColorNew = color(37, 12, 1);
-   let skyColorOld = color(241, 130, 31);
-   strokeWeight(3);
+let blueColorNew = color(15, 7, 7);
+let blueColorOld = color(220, 106, 103);
+let skyColorNew = color(37, 12, 1);
+let skyColorOld = color(241, 130, 31);
+strokeWeight(8);
 
-   for (let bg = 0; bg < 1080; bg++) {
-    
-    let gradientAmount = map(bg,0,1080,0,1)
-    let orangeColorGradient = map(counter,0,1215,0,1)
-    let orangeColor = lerpColor(skyColorNew, skyColorOld, orangeColorGradient)
-    let blueColorGradient = map(counter,0,1215,0,1)
-    let blueColor = lerpColor(blueColorNew, blueColorOld, blueColorGradient)
-    let strokeColor = lerpColor(blueColor, orangeColor, gradientAmount)
-    stroke(strokeColor)
+for (let bg = 0; bg < 1080; bg+=8) {
+ 
+ let gradientAmount = map(bg,0,1080,0,1)
+ let orangeColorGradient = map(counter,0,1215,0,1)
+ let orangeColor = lerpColor(skyColorNew, skyColorOld, orangeColorGradient)
+ let blueColorGradient = map(counter,0,1215,0,1)
+ let blueColor = lerpColor(blueColorNew, blueColorOld, blueColorGradient)
+ let strokeColor = lerpColor(blueColor, orangeColor, gradientAmount)
+ stroke(strokeColor)
 
-    line(0,bg, width,bg)
-   }
+ line(0,bg, width,bg)
+}
+
 
 
 
@@ -70,47 +77,27 @@ if (counter < 12300){
 
 //City
 
+   strokeWeight(1)
    
+   let imageHeights = counter*0.15
 
-strokeWeight(1)
-//let imageHeights = sin(1*counter)*100
-let imageHeights = counter*0.15
+   let fogAmount = map(counter, 0,1225, 255,0)
+
+   image(cityBackgra,0,imageHeights*0.25);
+    tint(255,255,255,fogAmount);
+   image(cityBack,0,imageHeights*0.25);
+     tint(255,255,255,255);
 
 
-image(cityBack,0,imageHeights*0.25);
+   image(cityMidgra,0,imageHeights*0.5);
+    tint(255,255,255,fogAmount);
+   image(cityMid,0,imageHeights*0.5);
+    tint(255,255,255,255);
 
-let cityFogBottomBlack = color(0,0,0,90);
-let cityFogBottomOrange = color(241,130,31,90);
-let cityFogTop = color(241,130,31,0);
-
-for (let fog = 0; fog < 1080; fog++) {
-
-let fogGradientAmount = map(fog,0,1080,0,1);
-let fogCol = map(counter, 0,1215, 0,1);
-let cityFogBottom = lerpColor(cityFogBottomBlack, cityFogBottomOrange, fogCol);
-let cityFogColor = lerpColor(cityFogTop, cityFogBottom, fogGradientAmount);
-
-stroke(cityFogColor)
-
-line(0,fog, width,fog)
-}
-
-image(cityMid,0,imageHeights*0.5);
-
-for (let fog = 0; fog < 1080; fog++) {
-
-let fogGradientAmount = map(fog,0,1080,0,1);
-let fogCol = map(counter, 0,1215, 0,1);
-let cityFogBottom = lerpColor(cityFogBottomBlack, cityFogBottomOrange, fogCol);
-let cityFogColor = lerpColor(cityFogTop, cityFogBottom, fogGradientAmount);
-
-stroke(cityFogColor)
-
-line(0,fog, width,fog)
-}
-
-image(cityFront,0,imageHeights);
-
+   image(cityFrontgra,0,imageHeights);
+     tint(255,255,255,fogAmount);
+   image(cityFront,0,imageHeights);
+     tint(255,255,255,255);
 
 //if (counter < 1215) {image(vignette, 0,0)}
 
@@ -141,13 +128,15 @@ if (counter < 1215){
 
 //Now Playing
 
+   let nowPlayingAlpha = map(counter, 1150,1250, 0 ,255)
+
    let nowPlayingVocal = map(vocal, 0, 100, 0, -20);
    let nowPlayingDrums = map(drum, 0, 100, 0, -20);
    let nowPlayingBass = map(bass, 0, 100, 0, -20);
    let nowPlayingOther = map(other, 0, 100, 0, -20);
 
    if (counter > 1215) {
-   fill(242, 156, 107);
+   fill(242, 156, 107, nowPlayingAlpha);
    textAlign(LEFT);
    textSize(30);
    text("Two Door Cinema Club - Sun", 20,50);
