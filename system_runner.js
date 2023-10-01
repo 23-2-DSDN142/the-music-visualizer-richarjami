@@ -2,6 +2,8 @@ const canvasWidth = 1920;
 const canvasHeight = 1080;
 
 
+//song length 11200
+
 let mainCanvas;
 
 let textInput;

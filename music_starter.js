@@ -21,18 +21,18 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
 
 //Image Loading
-  if (firstRun) {
-   cityFront = loadImage('cityfront.png');
-   cityMid = loadImage('citymid.png');
-   cityBack = loadImage('cityback.png');
-   cityFrontgra = loadImage('frontcitygra.png');
-   cityMidgra = loadImage('midcitygra.png');
-   cityBackgra = loadImage('backcitygra.png');
-   vignette = loadImage('vignette.png');
-   sunGlow = loadImage('sunGlow.png');
+if (firstRun) {
+  cityFront = loadImage('cityfrontlow.png');
+  cityMid = loadImage('citymidlow.png');
+  cityBack = loadImage('citybacklow.png');
+  cityFrontgra = loadImage('frontcitygralow.png');
+  cityMidgra = loadImage('midcitygralow.png');
+  cityBackgra = loadImage('backcitygralow.png');
+  vignette = loadImage('vignette.png');
+  sunGlow = loadImage('sunGlow.png');
 
-   firstRun = false
-  }
+  firstRun = false
+ }
 
 
 
@@ -41,13 +41,15 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
 //Gradient BG
 
+let segmentAmount = 1080/8;
+
 let blueColorNew = color(15, 7, 7);
 let blueColorOld = color(220, 106, 103);
 let skyColorNew = color(37, 12, 1);
 let skyColorOld = color(241, 130, 31);
-strokeWeight(8);
+strokeWeight(segmentAmount+1);
 
-for (let bg = 0; bg < 1080; bg+=8) {
+for (let bg = 0; bg < 1080; bg+=segmentAmount) {
  
  let gradientAmount = map(bg,0,1080,0,1)
  let orangeColorGradient = map(counter,0,1215,0,1)
@@ -57,7 +59,7 @@ for (let bg = 0; bg < 1080; bg+=8) {
  let strokeColor = lerpColor(blueColor, orangeColor, gradientAmount)
  stroke(strokeColor)
 
- line(0,bg, width,bg)
+ line(0,bg+(segmentAmount/2), width,bg+(segmentAmount/2))
 }
 
 
@@ -69,25 +71,28 @@ if (counter < 12300){
    let sunHeight = map(counter, 0,12300, height-200,height/2)
       fill(255, 221, 120)
       strokeWeight(0)
-      image(sunGlow,0,sunHeight-height/2)
+      //image(sunGlow,0,sunHeight-height/2)
       circle(width/2,sunHeight,600)
       
 }
 
 
 //City
-
-   strokeWeight(1)
+strokeWeight(1)
    
-   let imageHeights = counter*0.15
+   let imageHeights = counter*0.15*0.25
 
    let fogAmount = map(counter, 0,1225, 255,0)
 
-   image(cityBackgra,0,imageHeights*0.25);
+push();
+
+   scale(4);
+  image(cityBackgra,0,imageHeights*0.25);
     tint(255,255,255,fogAmount);
+  
    image(cityBack,0,imageHeights*0.25);
      tint(255,255,255,255);
-
+     
 
    image(cityMidgra,0,imageHeights*0.5);
     tint(255,255,255,fogAmount);
@@ -98,6 +103,13 @@ if (counter < 12300){
      tint(255,255,255,fogAmount);
    image(cityFront,0,imageHeights);
      tint(255,255,255,255);
+
+pop();
+     
+//let shapegradient = 
+
+//square(width/2, height/2, 100);
+
 
 //if (counter < 1215) {image(vignette, 0,0)}
 
