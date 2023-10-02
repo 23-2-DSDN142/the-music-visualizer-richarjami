@@ -1,5 +1,5 @@
-const canvasWidth = 1920;
-const canvasHeight = 1080;
+const canvasWidth = 1920/2;
+const canvasHeight = 1080/2;
 
 
 //song length 11200

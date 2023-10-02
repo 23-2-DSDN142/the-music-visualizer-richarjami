@@ -22,12 +22,12 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
 //Image Loading
 if (firstRun) {
-  cityFront = loadImage('cityfrontlow.png');
-  cityMid = loadImage('citymidlow.png');
-  cityBack = loadImage('citybacklow.png');
-  cityFrontgra = loadImage('frontcitygralow.png');
-  cityMidgra = loadImage('midcitygralow.png');
-  cityBackgra = loadImage('backcitygralow.png');
+  cityFront = loadImage('frontcity960.png');
+  cityMid = loadImage('midcity960.png');
+  cityBack = loadImage('backcity960.png');
+  cityFrontgra = loadImage('frontcitygra960.png');
+  cityMidgra = loadImage('midcitygra960.png');
+  cityBackgra = loadImage('backcitygra960.png');
   vignette = loadImage('vignette.png');
   sunGlow = loadImage('sunGlow.png');
 
@@ -40,16 +40,13 @@ if (firstRun) {
 
 
 //Gradient BG
-
-let segmentAmount = 1080/8;
-
 let blueColorNew = color(15, 7, 7);
 let blueColorOld = color(220, 106, 103);
 let skyColorNew = color(37, 12, 1);
 let skyColorOld = color(241, 130, 31);
-strokeWeight(segmentAmount+1);
+strokeWeight(1);
 
-for (let bg = 0; bg < 1080; bg+=segmentAmount) {
+for (let bg = 0; bg < 540; bg++) {
  
  let gradientAmount = map(bg,0,1080,0,1)
  let orangeColorGradient = map(counter,0,1215,0,1)
@@ -59,7 +56,7 @@ for (let bg = 0; bg < 1080; bg+=segmentAmount) {
  let strokeColor = lerpColor(blueColor, orangeColor, gradientAmount)
  stroke(strokeColor)
 
- line(0,bg+(segmentAmount/2), width,bg+(segmentAmount/2))
+ line(0,bg, width,bg)
 }
 
 
@@ -67,12 +64,14 @@ for (let bg = 0; bg < 1080; bg+=segmentAmount) {
 
 
 //SUN
+let sunRad = map(other, 30,100, 0,300);
+
 if (counter < 12300){
    let sunHeight = map(counter, 0,12300, height-200,height/2)
       fill(255, 221, 120)
       strokeWeight(0)
       //image(sunGlow,0,sunHeight-height/2)
-      circle(width/2,sunHeight,600)
+      circle(width/2,sunHeight,sunRad)
       
 }
 
@@ -86,7 +85,7 @@ strokeWeight(1)
 
 push();
 
-   scale(4);
+   scale(1);
   image(cityBackgra,0,imageHeights*0.25);
     tint(255,255,255,fogAmount);
   
@@ -118,19 +117,19 @@ pop();
   
 if (counter > 1215) {
    textAlign(CENTER);
-   let vocalsCol = map(vocal, 0,100, 100,255);
+   let vocalsCol = map(vocal, 40,100, 100,255);
    fill(vocalsCol, vocalsCol, vocalsCol, vocalsCol);
    strokeWeight(0);
    stroke(5);
-   textSize(60);
-   text(words, width/2, 1020);
+   textSize(40);
+   text(words, width/2, 300);
 }
 
 if (counter < 1215){
    textAlign(CENTER);
-   fill(255);
+   fill(255);960
    
-   textSize(80);
+   textSize(30);
    text(words, width/2, height/2);
 
 }
@@ -150,7 +149,7 @@ if (counter < 1215){
    if (counter > 1215) {
    fill(242, 156, 107, nowPlayingAlpha);
    textAlign(LEFT);
-   textSize(30);
+   textSize(20);
    text("Two Door Cinema Club - Sun", 20,50);
 
    rectMode(CORNERS);
