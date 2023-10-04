@@ -5,8 +5,9 @@ let cityBack;
 let cityFrontgra;
 let cityMidgra;
 let cityBackgra;
-let vignette;
-let sunGlow;
+let cloud1;
+let cloud2;
+let cloud3;
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
@@ -28,8 +29,9 @@ if (firstRun) {
   cityFrontgra = loadImage('frontcitygra960.png');
   cityMidgra = loadImage('midcitygra960.png');
   cityBackgra = loadImage('backcitygra960.png');
-  vignette = loadImage('vignette.png');
-  sunGlow = loadImage('sunGlow.png');
+  cloud1 = loadImage('cloud1.png');
+  cloud2 = loadImage('cloud2.png');
+  cloud2 = loadImage('cloud3.png');
 
   firstRun = false
  }
@@ -64,22 +66,50 @@ for (let bg = 0; bg < 540; bg++) {
 
 
 //SUN
-let sunRad = map(other, 30,100, 0,300);
+let sunX = map(other, 0,100, 0,300);
+
+
 
 if (counter < 12300){
-   let sunHeight = map(counter, 0,12300, height-200,height/2)
+   let sunHeight = map(counter, 0,12300, 400,100)
       fill(255, 221, 120)
+
+      drawingContext.shadowBlur = 200;
+      drawingContext.shadowColor = color(255, 204, 51);
+
       strokeWeight(0)
       //image(sunGlow,0,sunHeight-height/2)
-      circle(width/2,sunHeight,sunRad)
+      circle(width/2,sunHeight, sunX)
       
 }
+
+drawingContext.shadowBlur = 0;
+  
+
+//Clouds
+let cloudPosX = map(counter, 0,12300, 0, 960);
+
+
+
+
+
+
+   
+
+for (let cn = 0; cn < 20; cn++){
+   let randomX = random(-960,960)
+   let randomY = random(0,250)
+   tint(255,255,255,20)
+image(cloud1, cloudPosX+randomX,randomY);
+}  
+
+tint(255,255,255,255)
 
 
 //City
 strokeWeight(1)
    
-   let imageHeights = counter*0.15*0.25
+   let imageHeights = counter*0.15*0.9
 
    let fogAmount = map(counter, 0,1225, 255,0)
 
@@ -105,30 +135,26 @@ push();
 
 pop();
      
-//let shapegradient = 
 
-//square(width/2, height/2, 100);
-
-
-//if (counter < 1215) {image(vignette, 0,0)}
 
 
 //Lyrics
   
+let vocalsCol = map(vocal, 40,100, 100,220);
+//rest of the song
 if (counter > 1215) {
-   textAlign(CENTER);
-   let vocalsCol = map(vocal, 40,100, 100,255);
-   fill(vocalsCol, vocalsCol, vocalsCol, vocalsCol);
+   textAlign(RIGHT);
+   fill(242, 156, 107);
    strokeWeight(0);
    stroke(5);
-   textSize(40);
-   text(words, width/2, 300);
+   textSize(15);
+   text(words, 945, 30);
 }
 
+//intro
 if (counter < 1215){
    textAlign(CENTER);
-   fill(255);960
-   
+   fill(255);
    textSize(30);
    text(words, width/2, height/2);
 
@@ -141,23 +167,23 @@ if (counter < 1215){
 
    let nowPlayingAlpha = map(counter, 1150,1250, 0 ,255)
 
-   let nowPlayingVocal = map(vocal, 0, 100, 0, -20);
-   let nowPlayingDrums = map(drum, 0, 100, 0, -20);
-   let nowPlayingBass = map(bass, 0, 100, 0, -20);
-   let nowPlayingOther = map(other, 0, 100, 0, -20);
+   let nowPlayingVocal = map(vocal, 0, 100, 0, -10);
+   let nowPlayingDrums = map(drum, 0, 100, 0, -10);
+   let nowPlayingBass = map(bass, 0, 100, 0, -10);
+   let nowPlayingOther = map(other, 0, 100, 0, -10);
 
-   if (counter > 1215) {
+   if (counter > 1150) {
    fill(242, 156, 107, nowPlayingAlpha);
    textAlign(LEFT);
-   textSize(20);
-   text("Two Door Cinema Club - Sun", 20,50);
+   textSize(15);
+   text("Two Door Cinema Club - Sun", 15,30);
 
    rectMode(CORNERS);
 
-   rect(480, 50, 490, 50+nowPlayingVocal)
-   rect(495, 50, 505, 50+nowPlayingDrums)
-   rect(510, 50, 520, 50+nowPlayingBass)
-   rect(525, 50, 535, 50+nowPlayingOther)
+   rect(250, 30, 258, 30+nowPlayingVocal)
+   rect(260, 30, 268, 30+nowPlayingDrums)
+   rect(270, 30, 278, 30+nowPlayingBass)
+   rect(280, 30, 288, 30+nowPlayingOther)
 
 
    }
