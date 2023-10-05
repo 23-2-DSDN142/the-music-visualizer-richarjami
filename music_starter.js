@@ -8,6 +8,7 @@ let cityBackgra;
 let cloud1;
 let cloud2;
 let cloud3;
+let arrayname = [];
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
@@ -34,6 +35,13 @@ if (firstRun) {
   cloud2 = loadImage('cloud3.png');
 
   firstRun = false
+
+  for (let cn = 0; cn < 20; cn++){
+   let randomX = random(-960,960)
+   // let randomY = random(0,250)
+   arrayname[cn] = randomX;
+} 
+console.log(arrayname);
  }
 
 
@@ -87,22 +95,17 @@ drawingContext.shadowBlur = 0;
   
 
 //Clouds
-let cloudPosX = map(counter, 0,12300, 0, 960);
+let cloudRun = map(counter, 0,12300, 0, 960);
 
 
-
-
-
-
-   
-
-for (let cn = 0; cn < 20; cn++){
+for (let cn = 0; cn < arrayname.length; cn++){
    let randomX = random(-960,960)
    let randomY = random(0,250)
+   // arrayname[cn].push(randomX)
    tint(255,255,255,20)
-image(cloud1, cloudPosX+randomX,randomY);
+ image(cloud1, arrayname[cn], cloudRun+arrayname[cn]);
 }  
-
+console.log(arrayname);
 tint(255,255,255,255)
 
 
