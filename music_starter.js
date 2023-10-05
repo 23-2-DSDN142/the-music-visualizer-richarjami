@@ -8,7 +8,10 @@ let cityBackgra;
 let cloud1;
 let cloud2;
 let cloud3;
-let arrayname = [];
+let arrayX = [];
+let arrayY = [];
+let arrayImg = ['cloud1', 'cloud2', 'cloud3'];
+
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
@@ -32,16 +35,22 @@ if (firstRun) {
   cityBackgra = loadImage('backcitygra960.png');
   cloud1 = loadImage('cloud1.png');
   cloud2 = loadImage('cloud2.png');
-  cloud2 = loadImage('cloud3.png');
+  cloud3 = loadImage('cloud3.png');
 
   firstRun = false
 
-  for (let cn = 0; cn < 20; cn++){
-   let randomX = random(-960,960)
-   // let randomY = random(0,250)
-   arrayname[cn] = randomX;
-} 
-console.log(arrayname);
+  for (let cn = 0; cn < 200; cn++){
+   let randomX = random(0,960)
+   arrayX[cn] = randomX;
+  }
+   for (let cn = 0; cn < 200; cn++){
+      let randomY = random(0,200)
+      arrayY[cn] = randomY;
+   }
+
+   
+    
+console.log(arrayImg);
  }
 
 
@@ -98,14 +107,18 @@ drawingContext.shadowBlur = 0;
 let cloudRun = map(counter, 0,12300, 0, 960);
 
 
-for (let cn = 0; cn < arrayname.length; cn++){
-   let randomX = random(-960,960)
-   let randomY = random(0,250)
-   // arrayname[cn].push(randomX)
-   tint(255,255,255,20)
- image(cloud1, arrayname[cn], cloudRun+arrayname[cn]);
-}  
-console.log(arrayname);
+for (let cn = 0; cn < arrayX.length; cn++) {
+   tint(255, 255, 255, 20);
+   if (cn === 0) {
+     image(cloud1, arrayX[cn] + cloudRun, arrayY[cn]);
+   } else if (cn === 1) {
+     image(cloud2, arrayX[cn] + cloudRun, arrayY[cn]);
+   } else if (cn === 2) {
+     image(cloud3, arrayX[cn] + cloudRun, arrayY[cn]);
+   }
+ }
+ 
+console.log(arrayX);
 tint(255,255,255,255)
 
 
