@@ -10,7 +10,7 @@ let cloud2;
 let cloud3;
 let arrayX = [];
 let arrayY = [];
-let arrayImg = ['cloud1', 'cloud2', 'cloud3'];
+let arrayImg = [cloud1, cloud2, cloud3];
 
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
@@ -39,18 +39,20 @@ if (firstRun) {
 
   firstRun = false
 
-  for (let cn = 0; cn < 200; cn++){
-   let randomX = random(0,960)
+  for (let cn = 0; cn < 20; cn++){
+   let randomX = random(0-960,960)
    arrayX[cn] = randomX;
   }
-   for (let cn = 0; cn < 200; cn++){
-      let randomY = random(0,200)
+   for (let cn = 0; cn < 20; cn++){
+      let randomY = random(-200,200)
       arrayY[cn] = randomY;
    }
 
-   
-    
-console.log(arrayImg);
+   for (let cn = 0; cn < 20; cn++){
+      let randomised = int(random(0,3));
+      arrayImg[cn] = randomised;
+   }
+
  }
 
 
@@ -85,8 +87,6 @@ for (let bg = 0; bg < 540; bg++) {
 //SUN
 let sunX = map(other, 0,100, 0,300);
 
-
-
 if (counter < 12300){
    let sunHeight = map(counter, 0,12300, 400,100)
       fill(255, 221, 120)
@@ -104,22 +104,29 @@ drawingContext.shadowBlur = 0;
   
 
 //Clouds
-let cloudRun = map(counter, 0,12300, 0, 960);
+
+let cloudRun1 = map(counter, 0,12300, 0, 300);
+let cloudRun2 = map(counter, 0,12300, 0, 600);
+let cloudRun3 = map(counter, 0,12300, 0, 1200);
 
 
-for (let cn = 0; cn < arrayX.length; cn++) {
+for (let cn = 0; cn < 20; cn++) {
    tint(255, 255, 255, 20);
-   if (cn === 0) {
-     image(cloud1, arrayX[cn] + cloudRun, arrayY[cn]);
-   } else if (cn === 1) {
-     image(cloud2, arrayX[cn] + cloudRun, arrayY[cn]);
-   } else if (cn === 2) {
-     image(cloud3, arrayX[cn] + cloudRun, arrayY[cn]);
-   }
- }
- 
-console.log(arrayX);
+   let randomiser = arrayImg[cn]
+   
+   
+   if (randomiser == 0) {
+      image(cloud1, arrayX[cn] + cloudRun1, arrayY[cn])
+ } else if (randomiser == 1){
+       image(cloud2, arrayX[cn] + cloudRun2, arrayY[cn])
+ } else {
+       image(cloud3, arrayX[cn] + cloudRun3, arrayY[cn])
+ } 
+
+}
+
 tint(255,255,255,255)
+
 
 
 //City
@@ -204,7 +211,12 @@ if (counter < 1215){
 
    }
 
+//Ending
+let endingOp = map(counter, 11000,11050, 0 ,255)
+strokeWeight(0);
+fill(0,0,0,endingOp)
+rect(0,0, width*2,height*2);
 
-
+console.log(counter)
 
 }
