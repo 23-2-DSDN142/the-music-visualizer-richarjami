@@ -8,6 +8,8 @@ let cityBackgra;
 let cloud1;
 let cloud2;
 let cloud3;
+let birb1;
+let birb2;
 let arrayX = [];
 let arrayY = [];
 let arrayImg = [cloud1, cloud2, cloud3];
@@ -36,6 +38,9 @@ if (firstRun) {
   cloud1 = loadImage('cloud1.png');
   cloud2 = loadImage('cloud2.png');
   cloud3 = loadImage('cloud3.png');
+  birb1 = loadImage('birb1.png');
+  birb2 = loadImage('birb2.png');
+
 
   firstRun = false
 
@@ -101,6 +106,38 @@ if (counter < 12300){
 }
 
 drawingContext.shadowBlur = 0;
+
+//birbs
+let birbbob = sin(counter*2)*10;
+console.log(birbbob);
+
+push();
+scale(0.1);
+
+   if (drum < 55){
+      image(birb1,8000,birbbob+1000);
+   } else {
+      image(birb2,8000,birbbob+1000);
+   }
+
+
+
+   if (vocal < 35){
+      image(birb1,8300,birbbob+1200);
+   } else {
+      image(birb2,8300,birbbob+1200);
+   }
+
+
+   if (bass < 35){
+      image(birb1,8300,birbbob+800);
+   } else {
+      image(birb2,8300,birbbob+800);
+   }
+
+pop();
+
+
   
 
 //Clouds
@@ -126,6 +163,7 @@ for (let cn = 0; cn < 20; cn++) {
 }
 
 tint(255,255,255,255)
+
 
 
 
@@ -217,6 +255,6 @@ strokeWeight(0);
 fill(0,0,0,endingOp)
 rect(0,0, width*2,height*2);
 
-console.log(counter)
+
 
 }
