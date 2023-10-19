@@ -120,8 +120,7 @@ scale(0.1);
       image(birb2,8000,birbbob+1000);
    }
 
-
-
+   
    if (vocal < 35){
       image(birb1,8300,birbbob+1200);
    } else {
